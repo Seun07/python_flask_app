@@ -5,7 +5,7 @@ pipipeline{
             steps {
                 script {
  
-                    git branch: 'main', url: 'eneter project url' 
+                    git branch: 'main', url: 'https://github.com/Seun07/python_flask_app.git' 
                 }
             }
         }
