@@ -49,7 +49,7 @@ pipeline {
                         sh ('aws eks update-kubeconfig --name eks-cluster-207 --region eu-north-1')
                         sh 'kubectl config current-context'
                         //sh "kubectl get ns"
-                        sh "kubectl apply -f deployment-eks.yaml"
+                        sh "kubectl apply -f deployment-eks.yaml --validate=false"
                         sh "kubectl apply -f service-eks.yaml"
                     }
       
