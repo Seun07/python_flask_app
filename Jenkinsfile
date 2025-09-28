@@ -29,9 +29,9 @@ pipeline {
 
                 
                   
-                 withCredentials([string(credentialsId: 'DOCKERID', variable: 'DOCKERID')]) {
+                 withCredentials([string(credentialsId: 'ACCESSID', variable: 'ACCESSID')]) {
 
-                    sh 'docker login -u seun0706 -p ${DOCKERID}'
+                    sh 'docker login -u seun0706 -p ${ACCESSID}'
                 }
                     sh 'docker push seun0706/f-app1.1:latest'
                 }
