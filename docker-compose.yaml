@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+  python-flask:
+    build: .
+    image: seun0706/buildimage
+    restart: unless-stopped
+    privileged: true
+    user: root
+    ports:
+      - 8000:8000
+    container_name: build-container
