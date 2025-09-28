@@ -1,7 +1,10 @@
-pipipeline{
+pipeline {
+
+
     agent any
-    stages{
-         stage("GitHub checkout....") {
+    stages {
+        
+        stage("GitHub checkout....") {
             steps {
                 script {
  
@@ -16,30 +19,43 @@ pipipeline{
                 sh 'docker build . -t seun0706/f-app1.1'
             }
         }
-         stage("push image to DockerHub"){
+
+        stage("push image to DockerHub"){
+
             steps{
 
-               script {
+
+                script {
+
                 
                   
                  withCredentials([string(credentialsId: 'DOCKERID', variable: 'DOCKERID')]) {
-                    sh 'docker login -u seun0706 -p ${DOCKERID}'
-            }
-              sh 'docker push seun0706/f-app1.1:latest'
-            }
-        }
-    }
-    stage('Deploying python app to Kubernetes') {
-          steps {
-            script {
-              dir('kubernetes') {
-              sh ('aws eks update-kubeconfig --name eks-cluster-207 --region eu-north-1')
-              sh 'kubectl config current-context'
-              sh "kubectl get ns"
-              sh "kubectl apply -f deployment.yaml"
-              sh "kubectl apply -f service.yaml"
-        }
-      }
 
+                    sh 'docker login -u seun0706 -p ${DOCKERID}'
+                }
+                    sh 'docker push seun0706/f-app1.1:latest'
+                }
+            }
+        }
+        stage('Deploying python app to Kubernetes') {
+
+
+            steps {
+
+                script {
+
+                    dir('kubernetes') {
+
+                        sh ('aws eks update-kubeconfig --name eks-cluster-207 --region eu-north-1')
+                        sh 'kubectl config current-context'
+                        sh "kubectl get ns"
+                        sh "kubectl apply -f deployment-eks.yaml"
+                        sh "kubectl apply -f service-eks.yaml"
+                    }
+      
+
+                }
+            }
+        }
     }
 }
